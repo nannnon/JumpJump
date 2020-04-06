@@ -27,7 +27,11 @@ public class PlayerController : MonoBehaviour
             m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(0.1f, 0, 0));
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        const float kHitRadius = 0.5f;
+        Vector3 belowFoot = this.transform.position + new Vector3(0, -0.1f - kHitRadius, 0);
+        bool isGrounded = Physics.CheckSphere(belowFoot, kHitRadius);
+
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             const float kJumpForce = 400;
             m_rigidBody.AddForce(new Vector3(0, kJumpForce, 0));
