@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody m_rigidBody;
+    private Slider m_jumpingGauge;
 
     // Start is called before the first frame update
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
+        m_jumpingGauge = GameObject.Find("JumpingGauge").GetComponent<Slider>();
     }
 
     // Update is called once per frame
