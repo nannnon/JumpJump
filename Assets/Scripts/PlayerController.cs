@@ -22,9 +22,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 前進
         const float kPlayerSpeed = 0.5f;
         m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(0, 0, kPlayerSpeed));
 
+        // 左右移動
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(-0.1f, 0, 0));
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
             m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(0.1f, 0, 0));
         }
 
+        // ためジャンプ
         {
             const float kHitRadius = 0.5f;
             Vector3 belowFoot = this.transform.position + new Vector3(0, -0.1f - kHitRadius, 0);
@@ -70,3 +73,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+    
