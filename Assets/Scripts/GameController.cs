@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -49,7 +50,6 @@ public class GameController : MonoBehaviour
             if (m_blocks.Count < kExistingBlocksSize)
             {
                 GameObject go = Instantiate(m_block);
-                Transform t = go.transform;
 
                 // 位置
                 {
@@ -62,6 +62,18 @@ public class GameController : MonoBehaviour
                 go.transform.localScale = new Vector3(10, 1, 30);
 
                 m_blocks.Add(go);
+            }
+        }
+
+        // プレイヤーが一定距離落ちたらゲームオーバー
+        {
+            const float kGameOverHeight = 13;
+            Vector3 firstBlockPos = m_blocks[m_blocks.Count - 1].transform.position;
+            float th = firstBlockPos.y - kGameOverHeight;
+
+            if (m_player.transform.position.y <= th)
+            {
+                SceneManager.LoadScene("GameOverScene");
             }
         }
     }
