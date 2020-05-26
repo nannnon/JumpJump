@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
             GameObject go = Instantiate(m_block);
             Transform t = go.transform;
             go.transform.position = new Vector3(0, 0, 10 * i);
-            go.transform.localScale = new Vector3(10, 1, 50);
+            go.transform.localScale = new Vector3(10, 1, 10);
 
             m_blocks.Add(go);
         }
