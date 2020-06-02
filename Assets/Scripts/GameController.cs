@@ -5,24 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    private GameObject m_block;
+    private GameObject m_blockPrefab;
     private List<GameObject> m_blocks = new List<GameObject>();
     private GameObject m_player;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_block = Resources.Load<GameObject>("Block");
+        m_blockPrefab = Resources.Load<GameObject>("Block");
 
         // ブロックで道を作る
         for (int i = 0; i < 10; ++i)
         {
-            GameObject go = Instantiate(m_block);
-            Transform t = go.transform;
-            go.transform.position = new Vector3(0, 0, 10 * i);
-            go.transform.localScale = new Vector3(10, 1, 10);
+            GameObject block = Instantiate(m_blockPrefab);
+            Transform t = block.transform;
+            block.transform.position = new Vector3(0, 0, 10 * i);
+            block.transform.localScale = new Vector3(10, 1, 10);
 
-            m_blocks.Add(go);
+            m_blocks.Add(block);
         }
 
         m_player = GameObject.Find("Player");
@@ -49,19 +49,7 @@ public class GameController : MonoBehaviour
 
             if (m_blocks.Count < kExistingBlocksSize)
             {
-                GameObject go = Instantiate(m_block);
-
-                // 位置
-                {
-                    Vector3 firstBlockPos = m_blocks[m_blocks.Count - 1].transform.position;
-                    Vector3 diff = new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 0f), Random.Range(30f, 60f));
-                    go.transform.position = firstBlockPos + diff;
-                }
-
-                // 大きさ
-                go.transform.localScale = new Vector3(10, 1, 30);
-
-                m_blocks.Add(go);
+                AddBlocks();
             }
         }
 
@@ -76,5 +64,22 @@ public class GameController : MonoBehaviour
                 SceneManager.LoadScene("GameOverScene");
             }
         }
+    }
+
+    void AddBlocks()
+    {
+        GameObject block = Instantiate(m_blockPrefab);
+
+        // 位置
+        {
+            Vector3 firstBlockPos = m_blocks[m_blocks.Count - 1].transform.position;
+            Vector3 diff = new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 0f), Random.Range(30f, 60f));
+            block.transform.position = firstBlockPos + diff;
+        }
+
+        // 大きさ
+        block.transform.localScale = new Vector3(10, 1, 30);
+
+        m_blocks.Add(block);
     }
 }
