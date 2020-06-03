@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (jumpButton && m_hoveringPower > 0)
             {
-                const float kHoveringPowerUnit = 0.3f;
+                const float kHoveringPowerUnit = 0.9f;
                 m_hoveringPower -= kHoveringPowerUnit * Time.deltaTime;
                 m_hoveringGauge.value = m_hoveringPower;
 
@@ -143,8 +143,9 @@ public class PlayerController : MonoBehaviour
         // ホバリング
         if (m_hovering)
         {
-            const float kHoveringForce = 10;
-            m_rigidBody.AddForce(new Vector3(0, kHoveringForce, 0));
+            Vector3 vel = m_rigidBody.velocity;
+            vel.y = 0;
+            m_rigidBody.velocity = vel; 
         }
     }
 }
