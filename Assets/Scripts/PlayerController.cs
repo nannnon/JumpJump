@@ -6,11 +6,18 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody m_rigidBody;
+
     private Slider m_jumpingGauge;
     private bool m_previousJumpButton;
     private float m_jumpPower;
+
     private Slider m_hoveringGauge;
     private float m_hoveringPower;
+
+    private bool m_moveLeft;
+    private bool m_moveRight;
+    private bool m_jump;
+    private bool m_hovering;
 
     // Start is called before the first frame update
     void Start()
@@ -19,25 +26,34 @@ public class PlayerController : MonoBehaviour
         m_jumpingGauge = GameObject.Find("JumpingGauge").GetComponent<Slider>();
         m_previousJumpButton = false;
         m_jumpPower = 0;
+
         m_hoveringGauge = GameObject.Find("HoveringGauge").GetComponent<Slider>();
         m_hoveringPower = 1;
+
+        m_moveLeft = false;
+        m_moveRight = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // 前進
-        const float kPlayerSpeed = 0.5f;
-        m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(0, 0, kPlayerSpeed));
-
         // 左右移動
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(-0.1f, 0, 0));
+            m_moveLeft = true;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else
         {
-            m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(0.1f, 0, 0));
+            m_moveLeft = false;
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            m_moveRight = true;
+        }
+        else
+        {
+            m_moveRight = false;
         }
 
         {
@@ -48,32 +64,34 @@ public class PlayerController : MonoBehaviour
             bool jumpButton = Input.GetKey(KeyCode.Space);
 
             // ためジャンプ
-            if (isGrounded)
+            if (!m_jump)
             {
-                if (jumpButton)
+                if (isGrounded)
                 {
-                    const float kJumpPowerUnit = 0.03f;
-                    m_jumpPower += kJumpPowerUnit;
-                    if (m_jumpPower >= 1)
+                    if (jumpButton)
                     {
-                        m_jumpPower = 0;
-                    }
+                        const float kJumpPowerUnit = 1.5f;
+                        m_jumpPower += kJumpPowerUnit * Time.deltaTime;
+                        if (m_jumpPower > 1)
+                        {
+                            m_jumpPower = 0;
+                        }
 
-                    m_jumpingGauge.value = m_jumpPower;
+                        m_jumpingGauge.value = m_jumpPower;
+                    }
+                    else if (m_previousJumpButton)
+                    {
+                        m_jump = true;
+                    }
                 }
-                else if (m_previousJumpButton)
+                else
                 {
-                    const float kMaxJumpForce = 400;
-                    float jumpForce = kMaxJumpForce * m_jumpPower;
-                    m_rigidBody.AddForce(new Vector3(0, jumpForce, 0));
+                    m_jumpPower = 0;
                 }
-            }
-            else
-            {
-                m_jumpPower = 0;
             }
 
             // ホバリング
+            m_hovering = false;
             if (isGrounded)
             {
                 if (m_hoveringPower != 1)
@@ -84,15 +102,49 @@ public class PlayerController : MonoBehaviour
             }
             else if (jumpButton && m_hoveringPower > 0)
             {
-                const float kHoveringPowerUnit = 0.01f;
-                m_hoveringPower -= kHoveringPowerUnit;
+                const float kHoveringPowerUnit = 0.3f;
+                m_hoveringPower -= kHoveringPowerUnit * Time.deltaTime;
                 m_hoveringGauge.value = m_hoveringPower;
 
-                const float kHoveringForce = 10;
-                m_rigidBody.AddForce(new Vector3(0, kHoveringForce, 0));
+                m_hovering = true;
             }
 
             m_previousJumpButton = jumpButton;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        // 前進
+        const float kPlayerSpeed = 0.5f;
+        m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(0, 0, kPlayerSpeed));
+
+        // 左右移動
+        const float kPlayerLeftRightSpeed = 0.1f;
+        if (m_moveLeft)
+        {
+            m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(-kPlayerLeftRightSpeed, 0, 0));
+        }
+        if (m_moveRight)
+        {
+            m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(kPlayerLeftRightSpeed, 0, 0));
+        }
+
+        // ためジャンプ
+        if (m_jump)
+        {
+            const float kMaxJumpForce = 400;
+            float jumpForce = kMaxJumpForce * m_jumpPower;
+            m_rigidBody.AddForce(new Vector3(0, jumpForce, 0));
+
+            m_jump = false;
+        }
+
+        // ホバリング
+        if (m_hovering)
+        {
+            const float kHoveringForce = 10;
+            m_rigidBody.AddForce(new Vector3(0, kHoveringForce, 0));
         }
     }
 }
