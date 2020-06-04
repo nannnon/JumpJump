@@ -55,9 +55,8 @@ public class GameController : MonoBehaviour
 
         // プレイヤーが一定距離落ちたらゲームオーバー
         {
-            const float kGameOverHeight = 13;
-            Vector3 firstBlockPos = m_blocks[m_blocks.Count - 1].transform.position;
-            float th = firstBlockPos.y - kGameOverHeight;
+            const float kGameOverHeight = 25;
+            float th = GetFirstBlockPos().y - kGameOverHeight;
 
             if (m_player.transform.position.y <= th)
             {
@@ -66,21 +65,55 @@ public class GameController : MonoBehaviour
         }
     }
 
+    GameObject GetFirstBlock()
+    {
+        if (m_blocks.Count == 0)
+        {
+            throw new System.Exception("Blocks count is zero.");
+        }
+
+        return m_blocks[m_blocks.Count - 1];
+    }
+
+    Vector3 GetFirstBlockPos()
+    {
+        return GetFirstBlock().transform.position;
+    }
+
     void AddBlocks()
     {
         float whichType = Random.value;
 
-        // ちょいちょい
-        //if (whichType <= 0.3)
+        // 山なり
+        if (whichType <= 0.3)
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                GameObject block = Instantiate(m_blockPrefab);
+
+                block.transform.localScale = new Vector3(10, 1, 10);
+
+                Vector3 diff = new Vector3(
+                    Random.Range(-2f, 2f),
+                    0.3f,
+                    GetFirstBlock().transform.localScale.z / 2 + block.transform.localScale.z / 2
+                    );
+                block.transform.position = GetFirstBlockPos() + diff;
+
+
+                m_blocks.Add(block);
+            }
+        }
+        // 連続的
+        else
         {
             for (int i = 0; i < 10; ++i)
             {
                 GameObject block = Instantiate(m_blockPrefab);
 
                 // 位置
-                Vector3 firstBlockPos = m_blocks[m_blocks.Count - 1].transform.position;
                 Vector3 diff = new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 0f), Random.Range(30f, 60f));
-                block.transform.position = firstBlockPos + diff;
+                block.transform.position = GetFirstBlockPos() + diff;
 
                 // 大きさ
                 block.transform.localScale = new Vector3(10, 1, 30);
