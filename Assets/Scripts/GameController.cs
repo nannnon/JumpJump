@@ -68,18 +68,25 @@ public class GameController : MonoBehaviour
 
     void AddBlocks()
     {
-        GameObject block = Instantiate(m_blockPrefab);
+        float whichType = Random.value;
 
-        // 位置
+        // ちょいちょい
+        //if (whichType <= 0.3)
         {
-            Vector3 firstBlockPos = m_blocks[m_blocks.Count - 1].transform.position;
-            Vector3 diff = new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 0f), Random.Range(30f, 60f));
-            block.transform.position = firstBlockPos + diff;
+            for (int i = 0; i < 10; ++i)
+            {
+                GameObject block = Instantiate(m_blockPrefab);
+
+                // 位置
+                Vector3 firstBlockPos = m_blocks[m_blocks.Count - 1].transform.position;
+                Vector3 diff = new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 0f), Random.Range(30f, 60f));
+                block.transform.position = firstBlockPos + diff;
+
+                // 大きさ
+                block.transform.localScale = new Vector3(10, 1, 30);
+
+                m_blocks.Add(block);
+            }
         }
-
-        // 大きさ
-        block.transform.localScale = new Vector3(10, 1, 30);
-
-        m_blocks.Add(block);
     }
 }
