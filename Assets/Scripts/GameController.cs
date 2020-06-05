@@ -108,12 +108,15 @@ public class GameController : MonoBehaviour
             {
                 GameObject block = Instantiate(m_blockPrefab);
 
-                // 位置
-                Vector3 diff = new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 0f), Random.Range(30f, 60f));
-                block.transform.position = GetFirstBlockPos() + diff;
-
-                // 大きさ
                 block.transform.localScale = new Vector3(10, 1, 30);
+
+                float step = GetFirstBlock().transform.localScale.z / 2 + block.transform.localScale.z / 2;
+                Vector3 diff = new Vector3(
+                    Random.Range(-5f, 5f),
+                    Random.Range(-6f, 0f),
+                    Random.Range(step, step + 30f)
+                    );
+                block.transform.position = GetFirstBlockPos() + diff;
 
                 m_blocks.Add(block);
             }
