@@ -56,7 +56,9 @@ public class GameController : MonoBehaviour
         // プレイヤーが一定距離落ちたらゲームオーバー
         {
             const float kGameOverHeight = 25;
-            float th = GetFirstBlockPos().y - kGameOverHeight;
+            float firstBlockPosY = GetFirstBlockPos().y;
+            float lastBlockPosY = m_blocks[0].transform.position.y;
+            float th = (firstBlockPosY < lastBlockPosY ? firstBlockPosY : lastBlockPosY) - kGameOverHeight;
 
             if (m_player.transform.position.y <= th)
             {
@@ -67,11 +69,6 @@ public class GameController : MonoBehaviour
 
     GameObject GetFirstBlock()
     {
-        if (m_blocks.Count == 0)
-        {
-            throw new System.Exception("Blocks count is zero.");
-        }
-
         return m_blocks[m_blocks.Count - 1];
     }
 
