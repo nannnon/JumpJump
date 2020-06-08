@@ -97,6 +97,35 @@ public class GameController : MonoBehaviour
                     );
                 block.transform.position = GetFirstBlockPos() + diff;
 
+                m_blocks.Add(block);
+            }
+        }
+        // ハイジャンプ
+        else if (whichType <= 0.6)
+        {
+            for (int i = 0; i < 3; ++i)
+            {
+                GameObject block = Instantiate(m_blockPrefab);
+
+                block.transform.localScale = new Vector3(3, 1, 60);
+
+                Vector3 diff = new Vector3(
+                    0,
+                    -0.3f,
+                    GetFirstBlock().transform.localScale.z / 2 + block.transform.localScale.z / 2
+                    );
+                block.transform.position = GetFirstBlockPos() + diff;
+
+                m_blocks.Add(block);
+            }
+
+            {
+                GameObject block = Instantiate(m_blockPrefab);
+
+                block.transform.localScale = new Vector3(10, 1, 30);
+
+                Vector3 diff = new Vector3(0, -25, 150);
+                block.transform.position = GetFirstBlockPos() + diff;
 
                 m_blocks.Add(block);
             }
