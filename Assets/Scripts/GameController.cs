@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
         float whichType = Random.value;
 
         // 山なり
-        if (whichType <= 0.3)
+        if (whichType <= 0.2)
         {
             for (int i = 0; i < 10; ++i)
             {
@@ -101,7 +101,7 @@ public class GameController : MonoBehaviour
             }
         }
         // ハイジャンプ
-        else if (whichType <= 0.6)
+        else if (whichType <= 0.4)
         {
             for (int i = 0; i < 3; ++i)
             {
