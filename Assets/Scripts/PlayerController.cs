@@ -84,10 +84,6 @@ public class PlayerController : MonoBehaviour
                         m_jump = true;
                     }
                 }
-                else
-                {
-                    m_jumpPower = 0;
-                }
             }
 
             // ホバリング
@@ -138,6 +134,7 @@ public class PlayerController : MonoBehaviour
             m_rigidBody.AddForce(new Vector3(0, jumpForce, 0));
 
             m_jump = false;
+            m_jumpPower = 0;
         }
 
         // ホバリング
