@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     private bool m_rightButton;
     private bool m_jumpButton;
 
+    private Text m_score;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,9 @@ public class PlayerController : MonoBehaviour
         m_leftButton = false;
         m_rightButton = false; 
         m_jumpButton = false;
-}
+
+        m_score = GameObject.Find("Score").GetComponent<Text>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -122,6 +126,7 @@ public class PlayerController : MonoBehaviour
         // 前進
         const float kPlayerSpeed = 0.5f;
         m_rigidBody.MovePosition(m_rigidBody.position + new Vector3(0, 0, kPlayerSpeed));
+        m_score.text = "Score : " + (int)transform.position.z;
 
         // 左右移動
         const float kPlayerLeftRightSpeed = 0.1f;
