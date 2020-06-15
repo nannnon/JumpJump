@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
     private bool m_jump;
     private bool m_hovering;
 
+    private bool m_leftButton;
+    private bool m_rightButton;
+    private bool m_jumpButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,13 +36,17 @@ public class PlayerController : MonoBehaviour
 
         m_moveLeft = false;
         m_moveRight = false;
-    }
+
+        m_leftButton = false;
+        m_rightButton = false; 
+        m_jumpButton = false;
+}
 
     // Update is called once per frame
     void Update()
     {
         // 左右移動
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || m_leftButton)
         {
             m_moveLeft = true;
         }
@@ -47,7 +55,7 @@ public class PlayerController : MonoBehaviour
             m_moveLeft = false;
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || m_rightButton)
         {
             m_moveRight = true;
         }
@@ -61,7 +69,7 @@ public class PlayerController : MonoBehaviour
             Vector3 belowFoot = this.transform.position + new Vector3(0, -0.1f - kHitRadius, 0);
             bool isGrounded = Physics.CheckSphere(belowFoot, kHitRadius);
 
-            bool jumpButton = Input.GetKey(KeyCode.Space);
+            bool jumpButton = Input.GetKey(KeyCode.Space) | m_jumpButton;
 
             // ためジャンプ
             if (!m_jump)
@@ -144,5 +152,35 @@ public class PlayerController : MonoBehaviour
             vel.y = 0;
             m_rigidBody.velocity = vel; 
         }
+    }
+
+    public void lPushDown()
+    {
+        m_leftButton = true;
+    }
+
+    public void lPushUp()
+    {
+        m_leftButton = false;
+    }
+
+    public void rPushDown()
+    {
+        m_rightButton = true;
+    }
+
+    public void rPushUp()
+    {
+        m_rightButton = false;
+    }
+
+    public void jPushDown()
+    {
+        m_jumpButton = true;
+    }
+        
+    public void jPushUp()
+    {
+        m_jumpButton = false;
     }
 }
