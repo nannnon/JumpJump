@@ -96,6 +96,10 @@ public class PlayerController : MonoBehaviour
                         m_jump = true;
                     }
                 }
+                else
+                {
+                    m_jumpPower = 0;
+                }
             }
 
             // ホバリング
