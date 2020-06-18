@@ -14,9 +14,11 @@ public class TitleGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("MainScene");
-        }
+
+    }
+
+    public void OnClick()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
