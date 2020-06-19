@@ -18,14 +18,15 @@ public class GameOverGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("MainScene");
-        }
     }
 
     public void SetScore(int score)
     {
         m_score = score;
+    }
+
+    public void OnClick()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
