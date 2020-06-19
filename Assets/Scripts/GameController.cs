@@ -72,9 +72,18 @@ public class GameController : MonoBehaviour
 
             if (m_player.transform.position.y <= th)
             {
+                SceneManager.sceneLoaded += GameOverSceneLoaded;
                 SceneManager.LoadScene("GameOverScene");
             }
         }
+    }
+
+    private void GameOverSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        var controller = GameObject.Find("Game Over Game Controller").GetComponent<GameOverGameController>();
+        controller.SetScore(m_score);
+
+        SceneManager.sceneLoaded -= GameOverSceneLoaded;
     }
 
     GameObject GetFirstBlock()
