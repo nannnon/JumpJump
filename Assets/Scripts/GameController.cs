@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     private GameObject m_blockPrefab;
     private List<GameObject> m_blocks = new List<GameObject>();
     private GameObject m_player;
+
+    private int m_score = 0;
+    private Text m_scoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +30,8 @@ public class GameController : MonoBehaviour
         }
 
         m_player = GameObject.Find("Player");
+
+        m_scoreText = GameObject.Find("Score").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -52,6 +58,10 @@ public class GameController : MonoBehaviour
                 AddBlocks();
             }
         }
+
+        // スコア更新
+        m_score = (int)m_player.transform.position.z;
+        m_scoreText.text = "Score : " + m_score;
 
         // プレイヤーが一定距離落ちたらゲームオーバー
         {
