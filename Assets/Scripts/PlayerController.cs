@@ -8,38 +8,28 @@ public class PlayerController : MonoBehaviour
     private Rigidbody m_rigidBody;
 
     private Slider m_jumpingGauge;
-    private bool m_previousJumpButton;
-    private float m_jumpPower;
+    private bool m_previousJumpButton = false;
+    private float m_jumpPower = 0;
 
     private Slider m_hoveringGauge;
-    private float m_hoveringPower;
+    private float m_hoveringPower = 1;
 
-    private bool m_moveLeft;
-    private bool m_moveRight;
-    private bool m_jump;
-    private bool m_hovering;
+    private bool m_moveLeft = false;
+    private bool m_moveRight = false;
+    private bool m_jump = false;
+    private bool m_hovering = false;
 
-    private bool m_leftButton;
-    private bool m_rightButton;
-    private bool m_jumpButton;
+    private bool m_leftButton = false;
+    private bool m_rightButton = false;
+    private bool m_jumpButton = false;
 
     // Start is called before the first frame update
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
         m_jumpingGauge = GameObject.Find("JumpingGauge").GetComponent<Slider>();
-        m_previousJumpButton = false;
-        m_jumpPower = 0;
 
         m_hoveringGauge = GameObject.Find("HoveringGauge").GetComponent<Slider>();
-        m_hoveringPower = 1;
-
-        m_moveLeft = false;
-        m_moveRight = false;
-
-        m_leftButton = false;
-        m_rightButton = false; 
-        m_jumpButton = false;
     }
 
     // Update is called once per frame
