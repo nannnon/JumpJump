@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour
                 SceneManager.sceneLoaded += GameOverSceneLoaded;
                 SceneManager.LoadScene("GameOverScene");
             }
-        }
+        }   
     }
 
     private void GameOverSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -122,7 +122,6 @@ public class GameController : MonoBehaviour
         // ハイジャンプ
         else if (whichType <= 0.4)
         {
-            for (int i = 0; i < 3; ++i)
             {
                 GameObject block = Instantiate(m_blockPrefab);
 
@@ -130,7 +129,7 @@ public class GameController : MonoBehaviour
 
                 Vector3 diff = new Vector3(
                     0,
-                    -0.3f,
+                    0,
                     GetFirstBlock().transform.localScale.z / 2 + block.transform.localScale.z / 2
                     );
                 block.transform.position = GetFirstBlockPos() + diff;
