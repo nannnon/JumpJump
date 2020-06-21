@@ -159,10 +159,12 @@ public class GameController : MonoBehaviour
                 block.transform.localScale = new Vector3(10, 1, 30);
 
                 float step = GetFirstBlock().transform.localScale.z / 2 + block.transform.localScale.z / 2;
+                float level = m_score * 30f / 2000f;
+
                 Vector3 diff = new Vector3(
                     Random.Range(-5f, 5f),
                     Random.Range(-6f, 0f),
-                    Random.Range(step, step + 30f)
+                    Random.Range(step + level, step + 30f + level)
                     );
                 block.transform.position = GetFirstBlockPos() + diff;
 
