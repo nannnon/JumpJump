@@ -68,7 +68,8 @@ public class GameController : MonoBehaviour
             const float kGameOverHeight = 25;
             float firstBlockPosY = GetFirstBlockPos().y;
             float lastBlockPosY = m_blocks[0].transform.position.y;
-            float th = (firstBlockPosY < lastBlockPosY ? firstBlockPosY : lastBlockPosY) - kGameOverHeight;
+            float lowerBlockPosY = firstBlockPosY < lastBlockPosY ? firstBlockPosY : lastBlockPosY;
+            float th = lowerBlockPosY - kGameOverHeight;
 
             if (m_player.transform.position.y <= th)
             {
