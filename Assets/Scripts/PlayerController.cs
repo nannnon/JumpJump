@@ -23,13 +23,15 @@ public class PlayerController : MonoBehaviour
     private bool m_rightButton = false;
     private bool m_jumpButton = false;
 
+    private ParticleSystem m_jetPS;
+
     // Start is called before the first frame update
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
         m_jumpingGauge = GameObject.Find("JumpingGauge").GetComponent<Slider>();
-
         m_hoveringGauge = GameObject.Find("HoveringGauge").GetComponent<Slider>();
+        m_jetPS = GameObject.Find("Jet").GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -144,7 +146,13 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 vel = m_rigidBody.velocity;
             vel.y = 0;
-            m_rigidBody.velocity = vel; 
+            m_rigidBody.velocity = vel;
+
+            m_jetPS.Play();
+        }
+        else
+        {
+            m_jetPS.Stop();
         }
     }
 
