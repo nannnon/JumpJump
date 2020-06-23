@@ -19,11 +19,9 @@ public class PlayerController : MonoBehaviour
     private bool m_jump = false;
     private bool m_hovering = false;
 
-    private bool m_leftButton = false;
-    private bool m_rightButton = false;
-    private bool m_jumpButton = false;
-
     private ParticleSystem m_jetPS;
+
+    private TouchManager m_tm;
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +30,14 @@ public class PlayerController : MonoBehaviour
         m_jumpingGauge = GameObject.Find("JumpingGauge").GetComponent<Slider>();
         m_hoveringGauge = GameObject.Find("HoveringGauge").GetComponent<Slider>();
         m_jetPS = GameObject.Find("Jet").GetComponent<ParticleSystem>();
+        m_tm = GameObject.Find("TouchManager").GetComponent<TouchManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // 左右移動
-        if (Input.GetKey(KeyCode.LeftArrow) || m_leftButton)
+        if (Input.GetKey(KeyCode.LeftArrow) || m_tm.LeftButton)
         {
             m_moveLeft = true;
         }
@@ -47,7 +46,7 @@ public class PlayerController : MonoBehaviour
             m_moveLeft = false;
         }
 
-        if (Input.GetKey(KeyCode.RightArrow) || m_rightButton)
+        if (Input.GetKey(KeyCode.RightArrow) || m_tm.RightButton)
         {
             m_moveRight = true;
         }
@@ -61,7 +60,7 @@ public class PlayerController : MonoBehaviour
             Vector3 belowFoot = this.transform.position + new Vector3(0, -0.1f - kHitRadius, 0);
             bool isGrounded = Physics.CheckSphere(belowFoot, kHitRadius);
 
-            bool jumpButton = Input.GetKey(KeyCode.Space) | m_jumpButton;
+            bool jumpButton = Input.GetKey(KeyCode.Space) || m_tm.JumpButton;
 
             // ためジャンプ
             if (!m_jump)
@@ -154,35 +153,5 @@ public class PlayerController : MonoBehaviour
         {
             m_jetPS.Stop();
         }
-    }
-
-    public void lPushDown()
-    {
-        m_leftButton = true;
-    }
-
-    public void lPushUp()
-    {
-        m_leftButton = false;
-    }
-
-    public void rPushDown()
-    {
-        m_rightButton = true;
-    }
-
-    public void rPushUp()
-    {
-        m_rightButton = false;
-    }
-
-    public void jPushDown()
-    {
-        m_jumpButton = true;
-    }
-        
-    public void jPushUp()
-    {
-        m_jumpButton = false;
     }
 }
