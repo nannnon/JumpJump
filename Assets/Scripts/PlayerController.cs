@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
 
     private TouchManager m_tm;
 
+    private AudioSource m_audioSource;
+    private AudioClip m_jumpSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,8 @@ public class PlayerController : MonoBehaviour
         m_hoveringGauge = GameObject.Find("HoveringGauge").GetComponent<Slider>();
         m_jetPS = GameObject.Find("Jet").GetComponent<ParticleSystem>();
         m_tm = GameObject.Find("TouchManager").GetComponent<TouchManager>();
+        m_audioSource = GetComponent<AudioSource>();
+        m_jumpSound = Resources.Load<AudioClip>("JumpSound");
     }
 
     // Update is called once per frame
@@ -138,6 +143,8 @@ public class PlayerController : MonoBehaviour
 
             m_jump = false;
             m_jumpPower = 0;
+
+            m_audioSource.PlayOneShot(m_jumpSound);
         }
 
         // ホバリング
