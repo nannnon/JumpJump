@@ -23,8 +23,11 @@ public class PlayerController : MonoBehaviour
 
     private TouchManager m_tm;
 
-    private AudioSource m_audioSource;
+    private AudioSource m_as4jump;
     private AudioClip m_jumpSound;
+
+    private AudioSource m_as4hovering;
+    private AudioClip m_hoveringSound;
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +37,17 @@ public class PlayerController : MonoBehaviour
         m_hoveringGauge = GameObject.Find("HoveringGauge").GetComponent<Slider>();
         m_jetPS = GameObject.Find("Jet").GetComponent<ParticleSystem>();
         m_tm = GameObject.Find("TouchManager").GetComponent<TouchManager>();
-        m_audioSource = GetComponent<AudioSource>();
-        m_jumpSound = Resources.Load<AudioClip>("JumpSound");
+
+        {
+            AudioSource[] ass = GetComponents<AudioSource>();
+
+            m_as4jump = ass[0];
+            m_jumpSound = Resources.Load<AudioClip>("JumpSound");
+
+            m_as4hovering = ass[1];
+            m_hoveringSound = Resources.Load<AudioClip>("HoveringSound");
+            m_as4hovering.clip = m_hoveringSound;
+        }
     }
 
     // Update is called once per frame
@@ -144,7 +156,7 @@ public class PlayerController : MonoBehaviour
             m_jump = false;
             m_jumpPower = 0;
 
-            m_audioSource.PlayOneShot(m_jumpSound);
+            m_as4jump.PlayOneShot(m_jumpSound);
         }
 
         // ホバリング
@@ -155,10 +167,17 @@ public class PlayerController : MonoBehaviour
             m_rigidBody.velocity = vel;
 
             m_jetPS.Play();
+
+            if (!m_as4hovering.isPlaying)
+            {
+                m_as4hovering.Play();// OneShot(m_hoveringSound);
+            }
         }
         else
         {
             m_jetPS.Stop();
+
+            m_as4hovering.Stop();
         }
     }
 }
