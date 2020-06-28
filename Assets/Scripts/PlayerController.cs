@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
             m_as4hovering = ass[1];
             m_hoveringSound = Resources.Load<AudioClip>("HoveringSound");
             m_as4hovering.clip = m_hoveringSound;
-        }
+        }   
     }
 
     // Update is called once per frame
