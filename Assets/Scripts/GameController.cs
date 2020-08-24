@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] GameObject m_blockPrefab;
+    [SerializeField] GameObject m_blockPrefab = default;
     List<GameObject> m_blocks = new List<GameObject>();
     GameObject m_player;
 

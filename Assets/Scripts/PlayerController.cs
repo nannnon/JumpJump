@@ -24,10 +24,10 @@ public class PlayerController : MonoBehaviour
     TouchManager m_tm;
 
     AudioSource m_as4jump;
-    [SerializeField] AudioClip m_jumpSound;
+    [SerializeField] AudioClip m_jumpSound = default;
 
     AudioSource m_as4hovering;
-    [SerializeField] AudioClip m_hoveringSound;
+    [SerializeField] AudioClip m_hoveringSound = default;
 
     // Start is called before the first frame update
     void Start()
