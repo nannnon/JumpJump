@@ -24,10 +24,10 @@ public class PlayerController : MonoBehaviour
     private TouchManager m_tm;
 
     private AudioSource m_as4jump;
-    private AudioClip m_jumpSound;
+    [SerializeField] private AudioClip m_jumpSound;
 
     private AudioSource m_as4hovering;
-    private AudioClip m_hoveringSound;
+    [SerializeField] private AudioClip m_hoveringSound;
 
     // Start is called before the first frame update
     void Start()
@@ -42,10 +42,8 @@ public class PlayerController : MonoBehaviour
             AudioSource[] ass = GetComponents<AudioSource>();
 
             m_as4jump = ass[0];
-            m_jumpSound = Resources.Load<AudioClip>("JumpSound");
 
             m_as4hovering = ass[1];
-            m_hoveringSound = Resources.Load<AudioClip>("HoveringSound");
             m_as4hovering.clip = m_hoveringSound;
         }   
     }
