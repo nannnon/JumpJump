@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private GameObject m_blockPrefab;
-    private List<GameObject> m_blocks = new List<GameObject>();
-    private GameObject m_player;
+    [SerializeField] GameObject m_blockPrefab;
+    List<GameObject> m_blocks = new List<GameObject>();
+    GameObject m_player;
 
-    private int m_score = 0;
-    private Text m_scoreText;
+    int m_score = 0;
+    Text m_scoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour
         }   
     }
 
-    private void GameOverSceneLoaded(Scene scene, LoadSceneMode mode)
+    void GameOverSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         var controller = GameObject.Find("Game Over Game Controller").GetComponent<GameOverGameController>();
         controller.SetScore(m_score);

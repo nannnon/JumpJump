@@ -5,29 +5,29 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody m_rigidBody;
+    Rigidbody m_rigidBody;
 
-    private Slider m_jumpingGauge;
-    private bool m_previousJumpButton = false;
-    private float m_jumpPower = 0;
+    Slider m_jumpingGauge;
+    bool m_previousJumpButton = false;
+    float m_jumpPower = 0;
 
-    private Slider m_hoveringGauge;
-    private float m_hoveringPower = 1;
+    Slider m_hoveringGauge;
+    float m_hoveringPower = 1;
 
-    private bool m_moveLeft = false;
-    private bool m_moveRight = false;
-    private bool m_jump = false;
-    private bool m_hovering = false;
+    bool m_moveLeft = false;
+    bool m_moveRight = false;
+    bool m_jump = false;
+    bool m_hovering = false;
 
-    private ParticleSystem m_jetPS;
+    ParticleSystem m_jetPS;
 
-    private TouchManager m_tm;
+    TouchManager m_tm;
 
-    private AudioSource m_as4jump;
-    [SerializeField] private AudioClip m_jumpSound;
+    AudioSource m_as4jump;
+    [SerializeField] AudioClip m_jumpSound;
 
-    private AudioSource m_as4hovering;
-    [SerializeField] private AudioClip m_hoveringSound;
+    AudioSource m_as4hovering;
+    [SerializeField] AudioClip m_hoveringSound;
 
     // Start is called before the first frame update
     void Start()
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         // 前進
         const float kPlayerSpeed = 0.5f;

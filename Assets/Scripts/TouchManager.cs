@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TouchManager : MonoBehaviour
 {
-    private bool m_leftButton = false;
-    private bool m_rightButton = false;
-    private bool m_jumpButton = false;
+    bool m_leftButton = false;
+    bool m_rightButton = false;
+    bool m_jumpButton = false;
 
     public bool LeftButton  { get { return m_leftButton; } }
     public bool RightButton { get { return m_rightButton; } }

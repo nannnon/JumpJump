@@ -145,6 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b9d0978ab7d246dda222e9d60c717ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_jumpSound: {fileID: 8300000, guid: 40ef05c703d0b4ca1b4a5eb2fec1c932, type: 3}
+  m_hoveringSound: {fileID: 8300000, guid: 84e557e2c9a574ef29695244e0f2274a, type: 3}
 --- !u!136 &198166894
 CapsuleCollider:
   m_ObjectHideFlags: 0

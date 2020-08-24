@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameOverGameController : MonoBehaviour
 {
-    private int m_score;
+    int m_score;
 
     // Start is called before the first frame update
     void Start()
