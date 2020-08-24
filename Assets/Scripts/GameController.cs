@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    private GameObject m_blockPrefab;
+    [SerializeField] private GameObject m_blockPrefab;
     private List<GameObject> m_blocks = new List<GameObject>();
     private GameObject m_player;
 
@@ -16,13 +16,10 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_blockPrefab = Resources.Load<GameObject>("Block");
-
         // ブロックで道を作る
         for (int i = 0; i < 10; ++i)
         {
             GameObject block = Instantiate(m_blockPrefab);
-            Transform t = block.transform;
             block.transform.position = new Vector3(0, 0, 10 * i);
             block.transform.localScale = new Vector3(10, 1, 10);
 
