@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameOverGameController : MonoBehaviour
+public class GameOverController : MonoBehaviour
 {
     int m_score;
 

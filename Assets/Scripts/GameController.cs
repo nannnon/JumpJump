@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
 
     void GameOverSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        var controller = GameObject.Find("Game Over Game Controller").GetComponent<GameOverGameController>();
+        var controller = GameObject.Find("Game Over Controller").GetComponent<GameOverController>();
         controller.SetScore(m_score);
 
         SceneManager.sceneLoaded -= GameOverSceneLoaded;

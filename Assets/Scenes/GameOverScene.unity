@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 1185194721}
   - component: {fileID: 1185194722}
   m_Layer: 0
-  m_Name: Game Over Game Controller
+  m_Name: Game Over Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
