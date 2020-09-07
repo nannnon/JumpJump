@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
     void Update()
     {
         // 一定距離離れた最後尾のブロックを破棄する
+        if (m_blocks.Count > 0)
         {
             const float kExistDistance = 30;
             float distanceThreshold = m_player.transform.position.z - kExistDistance;
