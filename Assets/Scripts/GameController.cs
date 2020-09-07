@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
         float whichType = Random.value;
 
         // 山なり
-        if (whichType <= 0.2)
+        if (whichType <= 0.2f)
         {
             for (int i = 0; i < 10; ++i)
             {
@@ -119,7 +119,7 @@ public class GameController : MonoBehaviour
             }
         }
         // ハイジャンプ
-        else if (whichType <= 0.4)
+        else if (whichType <= 0.4f)
         {
             {
                 GameObject block = Instantiate(m_blockPrefab);
@@ -142,6 +142,28 @@ public class GameController : MonoBehaviour
                 block.transform.localScale = new Vector3(10, 1, 30);
 
                 Vector3 diff = new Vector3(0, -25, 150);
+                block.transform.position = GetFirstBlockPos() + diff;
+
+                m_blocks.Add(block);
+            }
+        }
+        // 斜め回転
+        else if (whichType <= 0.6f)
+        {
+            for (int i = 0; i < 5; ++i)
+            {
+                GameObject block = Instantiate(m_blockPrefab);
+
+                block.transform.localScale = new Vector3(5, 1, 20);
+
+                const float kXRot = -10;
+                block.transform.rotation = Quaternion.Euler(kXRot, 0, 0);
+
+                Vector3 diff = new Vector3(
+                    Random.Range(-2f, 2f),
+                    2f,
+                    GetFirstBlock().transform.localScale.z / 2 + block.transform.localScale.z / 2
+                    );
                 block.transform.position = GetFirstBlockPos() + diff;
 
                 m_blocks.Add(block);
