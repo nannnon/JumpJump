@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
 
             if (!m_as4hovering.isPlaying)
             {
-                m_as4hovering.Play();// OneShot(m_hoveringSound);
+                m_as4hovering.Play();
             }
         }
         else
