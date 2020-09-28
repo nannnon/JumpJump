@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] GameObject m_blockPrefab = default;
+    [SerializeField] GameObject m_fixedBlockPrefab = default;
+    [SerializeField] GameObject m_movingBlockPrefab = default;
     List<GameObject> m_blocks = new List<GameObject>();
     GameObject m_player;
 
@@ -19,7 +20,7 @@ public class GameController : MonoBehaviour
         // ブロックで道を作る
         for (int i = 0; i < 10; ++i)
         {
-            GameObject block = Instantiate(m_blockPrefab);
+            GameObject block = Instantiate(m_fixedBlockPrefab);
             block.transform.position = new Vector3(0, 0, 10 * i);
             block.transform.localScale = new Vector3(10, 1, 10);
 
@@ -87,7 +88,14 @@ public class GameController : MonoBehaviour
 
     GameObject GetFirstBlock()
     {
-        return m_blocks[m_blocks.Count - 1];
+        if (m_blocks.Count > 0)
+        {
+            return m_blocks[m_blocks.Count - 1];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     Vector3 GetFirstBlockPos()
@@ -97,14 +105,14 @@ public class GameController : MonoBehaviour
 
     void AddBlocks()
     {
-        float whichType = Random.value;
+        float whichType = 0.8f;// Random.value;
 
         // 山なり
         if (whichType <= 0.2f)
         {
             for (int i = 0; i < 10; ++i)
             {
-                GameObject block = Instantiate(m_blockPrefab);
+                GameObject block = Instantiate(m_fixedBlockPrefab);
 
                 block.transform.localScale = new Vector3(10, 1, 10);
 
@@ -122,7 +130,7 @@ public class GameController : MonoBehaviour
         else if (whichType <= 0.4f)
         {
             {
-                GameObject block = Instantiate(m_blockPrefab);
+                GameObject block = Instantiate(m_fixedBlockPrefab);
 
                 block.transform.localScale = new Vector3(3, 1, 60);
 
@@ -137,7 +145,7 @@ public class GameController : MonoBehaviour
             }
 
             {
-                GameObject block = Instantiate(m_blockPrefab);
+                GameObject block = Instantiate(m_fixedBlockPrefab);
 
                 block.transform.localScale = new Vector3(10, 1, 30);
 
@@ -152,7 +160,7 @@ public class GameController : MonoBehaviour
         {
             for (int i = 0; i < 5; ++i)
             {
-                GameObject block = Instantiate(m_blockPrefab);
+                GameObject block = Instantiate(m_fixedBlockPrefab);
 
                 block.transform.localScale = new Vector3(5, 1, 20);
 
@@ -169,12 +177,31 @@ public class GameController : MonoBehaviour
                 m_blocks.Add(block);
             }
         }
+        // 横移動
+        else if (whichType <= 0.8f)
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                GameObject block = Instantiate(m_movingBlockPrefab);
+
+                block.transform.localScale = new Vector3(10, 1, 10);
+
+                Vector3 diff = new Vector3(
+                    0,
+                    0,
+                    GetFirstBlock().transform.localScale.z / 2 + block.transform.localScale.z / 2
+                    );
+                block.transform.position = GetFirstBlockPos() + diff;
+
+                m_blocks.Add(block);
+            }
+        }
         // 連続的
         else
         {
             for (int i = 0; i < 10; ++i)
             {
-                GameObject block = Instantiate(m_blockPrefab);
+                GameObject block = Instantiate(m_fixedBlockPrefab);
 
                 block.transform.localScale = new Vector3(10, 1, 30);
 

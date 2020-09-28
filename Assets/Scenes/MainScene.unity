@@ -1206,7 +1206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba46fe790a53f4bf386057d3bc5f27ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_blockPrefab: {fileID: 1351225187462740793, guid: 7034a84771e904b2198fe4713abe5548,
+  m_fixedBlockPrefab: {fileID: 1351225187462740793, guid: 7034a84771e904b2198fe4713abe5548,
+    type: 3}
+  m_movingBlockPrefab: {fileID: 1351225187462740793, guid: 5787806a31fcf45c99cd4879a00048ad,
     type: 3}
 --- !u!4 &1042473056
 Transform:
