@@ -105,7 +105,7 @@ public class GameController : MonoBehaviour
 
     void AddBlocks()
     {
-        float whichType = 0.8f;// Random.value;
+        float whichType = Random.value;
 
         // 山なり
         if (whichType <= 0.2f)
