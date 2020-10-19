@@ -14,6 +14,9 @@ public class GameController : MonoBehaviour
     int m_score = 0;
     Text m_scoreText;
 
+    [SerializeField] Texture[] m_blockTextures = default;
+    int m_currentBlockTextureIndex = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +33,9 @@ public class GameController : MonoBehaviour
         m_player = GameObject.Find("Player");
 
         m_scoreText = GameObject.Find("Score").GetComponent<Text>();
+
+        // ブロックのテクスチャを初期化
+        SetTextureToBlockPrefab(m_blockTextures[m_currentBlockTextureIndex]);
     }
 
     // Update is called once per frame
@@ -75,7 +81,33 @@ public class GameController : MonoBehaviour
                 SceneManager.sceneLoaded += GameOverSceneLoaded;
                 SceneManager.LoadScene("GameOverScene");
             }
-        }   
+        }
+
+        // ブロックのテクスチャを動的に変更する
+        switch (m_currentBlockTextureIndex)
+        {
+            case 0:
+                if (m_score > 3000)
+                {
+                    ++m_currentBlockTextureIndex;
+                    SetTextureToBlockPrefab(m_blockTextures[m_currentBlockTextureIndex]);
+                }
+                break;
+
+            case 1:
+                if (m_score > 6000)
+                {
+                    ++m_currentBlockTextureIndex;
+                    SetTextureToBlockPrefab(m_blockTextures[m_currentBlockTextureIndex]);
+                }
+                break;
+        }
+    }
+
+    void SetTextureToBlockPrefab(Texture texture)
+    {
+        m_fixedBlockPrefab.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = texture;
+        m_movingBlockPrefab.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = texture;
     }
 
     void GameOverSceneLoaded(Scene scene, LoadSceneMode mode)
