@@ -29,8 +29,6 @@ public class PlayerController : MonoBehaviour
     AudioSource m_as4hovering;
     [SerializeField] AudioClip m_hoveringSound = default;
 
-    Animator m_animator;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -47,9 +45,7 @@ public class PlayerController : MonoBehaviour
 
             m_as4hovering = ass[1];
             m_as4hovering.clip = m_hoveringSound;
-        }
-
-        m_animator = GetComponent<Animator>();
+        }   
     }
 
     // Update is called once per frame
@@ -159,8 +155,6 @@ public class PlayerController : MonoBehaviour
             m_jumpPower = 0;
 
             m_as4jump.PlayOneShot(m_jumpSound);
-
-            m_animator.SetTrigger("Jump");
         }
 
         // ホバリング
